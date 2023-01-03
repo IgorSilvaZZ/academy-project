@@ -2,12 +2,14 @@
 
 import { Replace } from "src/helpers/Replace";
 import { Description } from "./Description";
-import { IPlanProps, Plan } from "./Plan";
+import { Plan } from "./Plan";
 import { TelephoneNumber } from "./TelephoneNumber";
 
 export interface IAcademyProps {
   name: string;
   description: Description;
+  email: string;
+  password: string;
   telephoneNumber: TelephoneNumber;
   address: string;
   city: string;
@@ -20,8 +22,8 @@ export interface IAcademyProps {
   daysOfWeek: string[];
   openingTime: string;
   closingTime: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 type ReplaceAcademyProps = Replace<IAcademyProps, { createdAt?: Date, updatedAt?: Date }>
@@ -31,7 +33,7 @@ export class Academy {
 
   constructor(props: ReplaceAcademyProps) {
 
-    const plansIsEmpty = this.validatePlansEmpty(props);
+    const plansIsEmpty = this.validatePlansEmpty(props.plans);
 
     if (plansIsEmpty) {
       throw new Error('Academia precisa de pelo menos um plano para ser criada!');
@@ -49,7 +51,23 @@ export class Academy {
   }
 
   public set name(name: string) {
-    this.name = name;
+    this.props.name = name;
+  }
+
+  public get email() {
+    return this.props.email;
+  }
+
+  public set email(email: string) {
+    this.props.email = email
+  }
+
+  public get password() {
+    return this.props.password;
+  }
+
+  public set password(password: string) {
+    this.props.password = password;
   }
 
   public get description(): Description {
@@ -116,6 +134,14 @@ export class Academy {
     this.props.latitude = latitude;
   }
 
+  public get longitude() {
+    return this.props.longitude;
+  }
+
+  public set longitude(longitude: number) {
+    this.props.longitude = longitude;
+  }
+
   public get plans() {
     return this.props.plans;
   }
@@ -148,20 +174,20 @@ export class Academy {
     this.props.closingTime = closingTime;
   }
 
-  public get createdAt() {
+  public get createdAt(): Date | undefined {
     return this.props.createdAt;
   }
 
-  public get updatedAt() {
+  public get updatedAt(): Date | undefined {
     return this.props.updatedAt;
   }
 
-  public set updatedAt(updatedAt: Date) {
+  public set updatedAt(updatedAt: Date | undefined) {
     this.props.updatedAt = updatedAt;
   }
 
-  private validatePlansEmpty({ plans }: ReplaceAcademyProps): boolean {
-    return plans.length === 0;
+  private validatePlansEmpty(plans: Plan[]): boolean {
+    return plans?.length === 0;
   }
 
 }

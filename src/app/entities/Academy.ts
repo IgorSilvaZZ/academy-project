@@ -1,33 +1,13 @@
 /* eslint-disable prettier/prettier */
 
 import { Replace } from "src/helpers/Replace";
+import { IAcademyProps } from "../interfaces/IAcademyProps";
 import { Description } from "./Description";
 import { Plan } from "./Plan";
 import { TelephoneNumber } from "./TelephoneNumber";
 
-export interface IAcademyProps {
-  name: string;
-  description: Description;
-  email: string;
-  password: string;
-  telephoneNumber: TelephoneNumber;
-  address: string;
-  city: string;
-  number: string;
-  postalCode: string;
-  neighborhood: string;
-  latitude: number;
-  longitude: number;
-  plans: Plan[];
-  daysOfWeek: string[];
-  openingTime: string;
-  closingTime: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
 
 type ReplaceAcademyProps = Replace<IAcademyProps, { createdAt?: Date, updatedAt?: Date }>
-
 export class Academy {
   private props: IAcademyProps;
 

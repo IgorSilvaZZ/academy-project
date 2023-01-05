@@ -1,32 +1,30 @@
 /* eslint-disable prettier/prettier */
 
-import { Academy } from "../entities/Academy";
-import { AcademyRepository } from "../repositories/AcademyRepository";
+import { Injectable } from '@nestjs/common/decorators';
+import { Academy } from '../entities/Academy';
+import { AcademyRepository } from '../repositories/AcademyRepository';
 
-type CreateAcademyRequest = Academy
+type CreateAcademyRequest = Academy;
 
 interface CreateAcademyResponse {
-    academy: Academy
+  academy: Academy;
 }
 
+@Injectable()
 export class CreateAcademyUseCase {
+  constructor(private readonly academyRepository: AcademyRepository) {}
 
-    constructor (private readonly academyRepository: AcademyRepository) {}
+  async execute(data: CreateAcademyRequest): Promise<CreateAcademyResponse> {
+    const academyExists = await this.academyRepository.findByEmail(data.email);
 
-    async execute(data: CreateAcademyRequest): Promise<CreateAcademyResponse> {
-
-        const academyExists = await this.academyRepository.findByEmail(data.email);
-
-        if (academyExists) {
-            throw new Error('Academy already exists!');
-        }
-
-        const academy = await this.academyRepository.create(data);
-
-        return {
-            academy
-        };
-
+    if (academyExists) {
+      throw new Error('Academy already exists!');
     }
 
+    const academy = await this.academyRepository.create(data);
+
+    return {
+      academy,
+    };
+  }
 }

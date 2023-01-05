@@ -1,22 +1,25 @@
 /* eslint-disable prettier/prettier */
 
-import { Replace } from "src/helpers/Replace";
-import { IAcademyProps } from "../interfaces/IAcademyProps";
-import { Description } from "./Description";
-import { Plan } from "./Plan";
-import { TelephoneNumber } from "./TelephoneNumber";
+import { Replace } from 'src/helpers/Replace';
+import { IAcademyProps } from '../interfaces/IAcademyProps';
+import { Description } from './Description';
+import { Plan } from './Plan';
+import { TelephoneNumber } from './TelephoneNumber';
 
-
-type ReplaceAcademyProps = Replace<IAcademyProps, { createdAt?: Date, updatedAt?: Date }>
+type ReplaceAcademyProps = Replace<
+  IAcademyProps,
+  { createdAt?: Date; updatedAt?: Date }
+>;
 export class Academy {
   private props: IAcademyProps;
 
   constructor(props: ReplaceAcademyProps) {
-
     const plansIsEmpty = this.validatePlansEmpty(props.plans);
 
     if (plansIsEmpty) {
-      throw new Error('Academia precisa de pelo menos um plano para ser criada!');
+      throw new Error(
+        'Academia precisa de pelo menos um plano para ser criada!',
+      );
     }
 
     this.props = {
@@ -39,7 +42,7 @@ export class Academy {
   }
 
   public set email(email: string) {
-    this.props.email = email
+    this.props.email = email;
   }
 
   public get password() {
@@ -82,7 +85,7 @@ export class Academy {
     this.props.city = city;
   }
 
-  public get number () {
+  public get number() {
     return this.props.number;
   }
 
@@ -134,7 +137,7 @@ export class Academy {
     return this.props.daysOfWeek;
   }
 
-  public set daysOfWeek(daysOfWeek: string[]) {
+  public set daysOfWeek(daysOfWeek: string) {
     this.props.daysOfWeek = daysOfWeek;
   }
 
@@ -169,5 +172,4 @@ export class Academy {
   private validatePlansEmpty(plans: Plan[]): boolean {
     return plans?.length === 0;
   }
-
 }

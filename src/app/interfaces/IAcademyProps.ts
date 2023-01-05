@@ -18,7 +18,7 @@ export interface IAcademyProps {
   latitude: number;
   longitude: number;
   plans: Plan[];
-  daysOfWeek: string[];
+  daysOfWeek: string;
   openingTime: string;
   closingTime: string;
   createdAt?: Date;

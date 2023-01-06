@@ -2,7 +2,7 @@
 
 import { AcademyRepositoryInMemory } from '../../../test/repositories/AcademyRepositoryInMemory';
 import { CreateAcademyUseCase } from './CreateAcademyUseCase';
-import { makeAcademy } from '../../../test/factories/academy-factory';
+import { makeAcademyRequest } from '../../../test/factories/academy-request-factory';
 
 let academyRepositoryInMemory: AcademyRepositoryInMemory;
 let createAcademyUseCase: CreateAcademyUseCase;
@@ -14,7 +14,9 @@ describe('Create Academy', () => {
   });
 
   it('Should be able create a new academy', async () => {
-    const { academy } = await createAcademyUseCase.execute(makeAcademy());
+    const { academy } = await createAcademyUseCase.execute(
+      makeAcademyRequest(),
+    );
 
     expect(academyRepositoryInMemory.gyms).toHaveLength(1);
     expect(academyRepositoryInMemory.gyms[0]).toEqual(academy);
@@ -22,12 +24,12 @@ describe('Create Academy', () => {
 
   it('Should not be able create Academy with email already exists', async () => {
     await createAcademyUseCase.execute(
-      makeAcademy({ name: 'Academy Plus One' })
+      makeAcademyRequest({ name: 'Academy Plus One' }),
     );
 
     expect(() => {
       return createAcademyUseCase.execute(
-        makeAcademy({ name: 'Academy Plus Two' })
+        makeAcademyRequest({ name: 'Academy Plus Two' }),
       );
     }).rejects.toThrow();
   });

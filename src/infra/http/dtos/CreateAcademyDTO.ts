@@ -5,10 +5,8 @@ import {
   Length,
   IsEmail,
   IsArray,
-  MinLength,
+  ArrayMinSize,
 } from 'class-validator';
-
-import { Plan } from 'src/app/entities/Plan';
 
 export class CreateAcademyDTO {
   @IsNotEmpty()
@@ -50,12 +48,17 @@ export class CreateAcademyDTO {
   longitude: number;
 
   @IsArray()
-  @MinLength(1)
-  plans: Plan[];
+  @ArrayMinSize(1)
+  plans: [
+    {
+      name: string;
+      description: string;
+      value: number;
+    },
+  ];
 
-  @IsArray()
-  @MinLength(5)
-  daysOfWeek: string[];
+  @IsNotEmpty()
+  daysOfWeek: string;
 
   @IsNotEmpty()
   openingTime: string;

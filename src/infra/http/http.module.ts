@@ -7,8 +7,8 @@ import { DatabaseModule } from '../database/database.module';
 import { AcademyController } from './controllers/academy.controller';
 
 @Module({
+  imports: [DatabaseModule],
   controllers: [AcademyController],
   providers: [CreateAcademyUseCase],
-  imports: [DatabaseModule],
 })
 export class HttpModule {}

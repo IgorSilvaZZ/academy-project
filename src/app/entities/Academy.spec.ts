@@ -12,8 +12,8 @@ describe('Create Academy', () => {
   it('Should not be able with plans empty', () => {
     expect(() => {
       makeAcademy({
-        plans: []
-      })
+        plans: [],
+      });
     }).toThrow();
-  })
+  });
 });

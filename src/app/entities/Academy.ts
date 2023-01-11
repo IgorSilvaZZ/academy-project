@@ -1,6 +1,8 @@
 /* eslint-disable prettier/prettier */
 
-import { Replace } from 'src/helpers/Replace';
+import { randomUUID } from 'node:crypto';
+
+import { Replace } from '../../helpers/Replace';
 import { IAcademyProps } from '../interfaces/IAcademyProps';
 import { Description } from './Description';
 import { Plan } from './Plan';

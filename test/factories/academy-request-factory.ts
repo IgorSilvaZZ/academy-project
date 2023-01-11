@@ -1,13 +1,13 @@
 /* eslint-disable prettier/prettier */
 
-import { CreateAcademyRequest } from 'src/app/useCases/CreateAcademyUseCase';
+import { ICreateAcademyRequest } from '../../src/app/interfaces/ICreateAcademyRequest';
 import { CreateAcademyDTO } from '../../src/infra/http/dtos/CreateAcademyDTO';
 
 type OverrideAcademyProps = Partial<CreateAcademyDTO>;
 
 export const makeAcademyRequest = (
   overrideAcademy: OverrideAcademyProps = {},
-): CreateAcademyRequest => {
+): ICreateAcademyRequest => {
   return {
     name: 'Academia Plus',
     email: 'academia@test.com',

@@ -15,7 +15,7 @@ describe('Create Academy', () => {
 
   it('Should be able create a new academy', async () => {
     const { academy } = await createAcademyUseCase.execute(
-      makeAcademyRequest(),
+      makeAcademyRequest({ name: 'Academy Plus One' }),
     );
 
     expect(academyRepositoryInMemory.gyms).toHaveLength(1);

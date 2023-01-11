@@ -2,22 +2,29 @@
 
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Document } from 'mongoose';
 
 import { Academy } from '../../../../app/entities/Academy';
 import { AcademyRepository } from '../../../../app/repositories/AcademyRepository';
-import { AcademySchema } from '../schemas/AcademySchema';
 
+interface IAcademyDocument extends Academy, Document {}
 @Injectable()
 export class MongooseAcademyRepository implements AcademyRepository {
   constructor(
-    @InjectModel('academy') private academyModel: Model<typeof AcademySchema>,
+    @InjectModel('academy') private academyModel: Model<IAcademyDocument>,
   ) {}
 
-  findByEmail(email: string): Promise<Academy | null | undefined> {
-    throw new Error('Method not implemented.');
+  async findByEmail(email: string): Promise<Academy | null | undefined> {
+    const academy = await this.academyModel.findOne({ email });
+
+    return academy;
   }
-  create(academy: Academy): Promise<Academy> {
-    throw new Error('Method not implemented.');
+
+  async create(academy: Academy): Promise<Academy> {
+    const newAcademy = new this.academyModel(academy);
+
+    await newAcademy.save();
+
+    return newAcademy;
   }
 }

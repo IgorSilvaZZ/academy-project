@@ -1,39 +1,43 @@
 /* eslint-disable prettier/prettier */
 
 export class TelephoneNumber {
+  private readonly telephoneNumber: string;
 
-    private readonly telephoneNumber: string;
+  constructor(telephoneNumber: string) {
+    const telephoneNumberIsValid =
+      this.validateTelephoneNumber(telephoneNumber);
 
-    constructor(telephoneNumber: string) {
-
-        const telephoneNumberIsValid = this.validateTelephoneNumber(telephoneNumber);
-
-        if (!telephoneNumberIsValid) {
-            throw new Error("Telephone is not valid formatter!");
-        }
-
-        const notTelephoneFormatter = this.extractPhoneNumber(telephoneNumber);
-
-        this.telephoneNumber = notTelephoneFormatter;
+    if (!telephoneNumberIsValid) {
+      throw new Error('Telephone is not valid formatter!');
     }
 
-    public get value () {
-        return this.telephoneNumber;
-    }
+    const notTelephoneFormatter = this.extractPhoneNumber(telephoneNumber);
 
-    private validateTelephoneNumber(phoneNumberFormatter: string): boolean {
-        // Expressão regular para validar numero de telefone com DD entre parenteses
-        const expressionRegex = '^\\(((1[1-9])|([2-9][0-9]))\\)((3[0-9]{3}-[0-9]{4})|(9[0-9]{3}-[0-9]{5}))$';
+    this.telephoneNumber = notTelephoneFormatter;
+  }
 
-        const regex = new RegExp(expressionRegex);
+  public get value() {
+    return this.telephoneNumber;
+  }
 
-        return regex.test(phoneNumberFormatter);
-    }
+  /* private validateTelephoneNumber(phoneNumberFormatter: string): boolean {
+    // Expressão regular para validar numero de telefone com DD entre parenteses
+    const expressionRegex =
+      '^\\(((1[1-9])|([2-9][0-9]))\\)((3[0-9]{3}-[0-9]{4})|(9[0-9]{3}-[0-9]{5}))$';
 
-    private extractPhoneNumber(phoneNumberWithMask: string): string {
-        const phoneNumberWithoutMask = phoneNumberWithMask.replace(/\D/g, '');
+    const regex = new RegExp(expressionRegex);
 
-        return phoneNumberWithoutMask;
-    }
+    return regex.test(phoneNumberFormatter);
+  } */
 
+  private validateTelephoneNumber(phoneNumberFormatter: string): boolean {
+    const sanitizedPhone = phoneNumberFormatter.replace(/\D/g, '');
+    return sanitizedPhone.length >= 10 && sanitizedPhone.length <= 11;
+  }
+
+  private extractPhoneNumber(phoneNumberWithMask: string): string {
+    const phoneNumberWithoutMask = phoneNumberWithMask.replace(/\D/g, '');
+
+    return phoneNumberWithoutMask;
+  }
 }

@@ -6,12 +6,21 @@ import { AcademyRepository } from '../../src/app/repositories/AcademyRepository'
 export class AcademyRepositoryInMemory implements AcademyRepository {
   public gyms: Academy[] = [];
 
-  async findByEmail(email: string): Promise<Academy | undefined> {
-    return this.gyms.find(academy => academy.email === email);
+  async listGyms(): Promise<Academy[]> {
+    return this.gyms;
+  }
+
+  async findByEmail(email: string): Promise<Academy | null> {
+    const academy = this.gyms.find((academy) => academy.email === email);
+
+    if (!academy) {
+      return null;
+    }
+
+    return academy;
   }
 
   async create(academy: Academy): Promise<Academy> {
-  
     this.gyms.push(academy);
 
     return academy;

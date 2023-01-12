@@ -4,27 +4,35 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Document } from 'mongoose';
 
+import { IAcademy } from '../../../../app/interfaces/ICreateAcademyRequest';
 import { Academy } from '../../../../app/entities/Academy';
 import { AcademyRepository } from '../../../../app/repositories/AcademyRepository';
+import { MoongoseAcademyMapper } from '../mappers/MoongoseAcademyMapper';
 
-interface IAcademyDocument extends Academy, Document {}
+export interface IAcademyDocument extends IAcademy, Document {}
 @Injectable()
 export class MongooseAcademyRepository implements AcademyRepository {
   constructor(
     @InjectModel('academy') private academyModel: Model<IAcademyDocument>,
   ) {}
 
-  async findByEmail(email: string): Promise<Academy | null | undefined> {
-    const academy = await this.academyModel.findOne({ email });
+  async findByEmail(email: string): Promise<Academy | null> {
+    const academy = await this.academyModel.findOne({ email }).exec();
 
-    return academy;
+    if (!academy) {
+      return null;
+    }
+
+    return MoongoseAcademyMapper.toDomain(academy);
   }
 
   async create(academy: Academy): Promise<Academy> {
-    const newAcademy = new this.academyModel(academy);
+    const academyMoongose = MoongoseAcademyMapper.toMoongose(academy);
+
+    const newAcademy = new this.academyModel(academyMoongose);
 
     await newAcademy.save();
 
-    return newAcademy;
+    return academy;
   }
 }

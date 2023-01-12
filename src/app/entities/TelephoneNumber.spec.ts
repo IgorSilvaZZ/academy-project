@@ -9,8 +9,10 @@ describe('Telephone Number Academy', () => {
     expect(telephoneNumber).toBeTruthy();
   });
 
-  it('Should not be able to create a academy formatter telephone number without parentheses', () => {
-    expect(() => new TelephoneNumber('119889-90909')).toThrow();
+  it('Should be able to create a academy formatter telephone number without parentheses', () => {
+    const telephoneNumber = new TelephoneNumber('119889-90909');
+
+    expect(telephoneNumber).toBeTruthy();
   });
 
   it('Should not be able to create a academy formatter telephone number formatter invalid', () => {

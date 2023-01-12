@@ -1,31 +1,62 @@
 /* eslint-disable prettier/prettier */
 
-import mongoose from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-export const AcademySchema = new mongoose.Schema(
-  {
-    name: String,
-    description: String,
-    email: String,
-    password: String,
-    telephoneNumber: String,
-    address: String,
-    city: String,
-    number: String,
-    postalCode: String,
-    neighborhood: String,
-    latitude: Number,
-    longitude: Number,
-    plans: [
-      {
-        name: String,
-        description: String,
-        value: Number,
-      },
-    ],
-    daysOfWeek: String,
-    openingTime: String,
-    closingTime: String,
-  },
-  { timestamps: true, collection: 'gyms' },
-);
+@Schema({ timestamps: true, collection: 'gyms' })
+export class AcademyCollection {
+  @Prop()
+  name: string;
+
+  @Prop()
+  description: string;
+
+  @Prop()
+  email: string;
+
+  @Prop()
+  password: string;
+
+  @Prop()
+  telephoneNumber: string;
+
+  @Prop()
+  address: string;
+
+  @Prop()
+  city: string;
+
+  @Prop()
+  number: string;
+
+  @Prop()
+  postalCode: string;
+
+  @Prop()
+  neighborhood: string;
+
+  @Prop()
+  latitude: number;
+
+  @Prop()
+  longitude: number;
+
+  @Prop()
+  plans: [
+    {
+      name: string;
+      description: string;
+      value: number;
+    },
+  ];
+
+  @Prop()
+  daysOfWeek: string;
+
+  @Prop()
+  openingTime: string;
+
+  @Prop()
+  closingTime: string;
+}
+
+export const AcademySchema = SchemaFactory.createForClass(AcademyCollection);

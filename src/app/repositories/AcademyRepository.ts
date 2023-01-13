@@ -8,5 +8,5 @@ export abstract class AcademyRepository {
   abstract create(academy: Academy): Promise<Academy>;
   abstract listGyms(): Promise<Academy[]>;
   abstract findById(id: string): Promise<Academy | null>;
-  abstract createPlan(id: string, plan: Plan): Promise<Plan>;
+  abstract createPlan(id: string, plan: Plan): Promise<Plan | null>;
 }

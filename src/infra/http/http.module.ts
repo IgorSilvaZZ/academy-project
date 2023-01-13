@@ -10,6 +10,7 @@ import { AcademyRepository } from '../../../src/app/repositories/AcademyReposito
 import { MongooseAcademyRepository } from '../database/mongoose/repositories/MongooseAcademyRepository';
 import { ListGymsUseCase } from '../../../src/app/useCases/ListGymsUseCase';
 import { FindByIdAcademyUseCase } from '../../../src/app/useCases/FindByIdAcademyUseCase';
+import { CreatePlanAcademyUseCase } from 'src/app/useCases/CreatePlanAcademyUseCase';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { FindByIdAcademyUseCase } from '../../../src/app/useCases/FindByIdAcadem
     CreateAcademyUseCase,
     ListGymsUseCase,
     FindByIdAcademyUseCase,
+    CreatePlanAcademyUseCase,
   ],
 })
 export class HttpModule {}

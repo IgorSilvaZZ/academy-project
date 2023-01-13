@@ -9,6 +9,7 @@ import { Academy } from '../../../../app/entities/Academy';
 import { AcademyRepository } from '../../../../app/repositories/AcademyRepository';
 import { MoongoseAcademyMapper } from '../mappers/MoongoseAcademyMapper';
 import { Plan } from 'src/app/entities/Plan';
+import { MoongosePlanMapper } from '../mappers/MoongosePlanMapper';
 
 export interface IAcademyDocument extends IAcademy, Document {}
 @Injectable()
@@ -53,7 +54,21 @@ export class MongooseAcademyRepository implements AcademyRepository {
     return academy;
   }
 
-  createPlan(id: string, plan: Plan): Promise<Plan> {
-    throw new Error('Method not implemented.');
+  async createPlan(id: string, plan: Plan): Promise<Plan | null> {
+    const academy = await this.academyModel.findOne({ _id: id }).exec();
+
+    const planMoongose = MoongosePlanMapper.toMoongose(plan);
+
+    if (!academy) {
+      return null;
+    }
+
+    academy?.plans.push(planMoongose);
+
+    await this.academyModel
+      .findOneAndUpdate({ _id: id }, { $set: academy })
+      .exec();
+
+    return plan;
   }
 }

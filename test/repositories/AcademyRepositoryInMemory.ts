@@ -37,7 +37,7 @@ export class AcademyRepositoryInMemory implements AcademyRepository {
     return academy;
   }
 
-  async createPlan(id: string, plan: Plan): Promise<Plan> {
+  async createPlan(id: string, plan: Plan): Promise<Plan | null> {
     const academy = this.gyms.find((academy) => academy._id === id);
 
     academy?.plans.push(plan);

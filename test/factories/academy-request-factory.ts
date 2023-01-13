@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 
+import { randomUUID } from 'crypto';
 import { IAcademy } from '../../src/app/interfaces/ICreateAcademyRequest';
 import { CreateAcademyDTO } from '../../src/infra/http/dtos/CreateAcademyDTO';
 
@@ -24,6 +25,7 @@ export const makeAcademyRequest = (
     longitude: 82.8439,
     plans: [
       {
+        id: randomUUID(),
         name: 'Basic Plan',
         description:
           'Descrição para um novo plano que estará disponivel para os alunos',

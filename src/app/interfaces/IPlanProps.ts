@@ -3,6 +3,7 @@
 import { Description } from '../entities/Description';
 
 export interface IPlanProps {
+  id?: string;
   name: string;
   description: Description;
   value: number;

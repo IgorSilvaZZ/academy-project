@@ -2,6 +2,7 @@
 
 import { Injectable } from '@nestjs/common/decorators';
 import { BadRequestException } from '@nestjs/common/exceptions';
+import { randomUUID } from 'crypto';
 
 import { Academy } from '../entities/Academy';
 import { Description } from '../entities/Description';
@@ -30,6 +31,7 @@ export class CreateAcademyUseCase {
     const plans = request.plans.map(
       (plan) =>
         new Plan({
+          id: randomUUID(),
           name: plan.name,
           description: new Description(plan.description),
           value: plan.value,

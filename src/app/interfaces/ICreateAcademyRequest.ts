@@ -17,6 +17,7 @@ export interface IAcademy {
   password: string;
   plans: [
     {
+      id: string;
       name: string;
       description: string;
       value: number;

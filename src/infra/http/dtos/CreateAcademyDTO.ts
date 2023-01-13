@@ -51,6 +51,7 @@ export class CreateAcademyDTO {
   @ArrayMinSize(1)
   plans: [
     {
+      id: string;
       name: string;
       description: string;
       value: number;

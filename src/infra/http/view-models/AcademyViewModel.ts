@@ -11,6 +11,7 @@ export class AcademyViewModel {
     }));
 
     return {
+      _id: academy._id,
       name: academy.name,
       email: academy.email,
       password: academy.password,

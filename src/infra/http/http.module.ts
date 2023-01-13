@@ -8,6 +8,8 @@ import { AcademySchema } from '../database/mongoose/schemas/AcademySchema';
 import { CreateAcademyUseCase } from '../../../src/app/useCases/CreateAcademyUseCase';
 import { AcademyRepository } from '../../../src/app/repositories/AcademyRepository';
 import { MongooseAcademyRepository } from '../database/mongoose/repositories/MongooseAcademyRepository';
+import { ListGymsUseCase } from '../../../src/app/useCases/ListGymsUseCase';
+import { FindByIdAcademyUseCase } from '../../../src/app/useCases/FindByIdAcademyUseCase';
 
 @Module({
   imports: [
@@ -17,6 +19,8 @@ import { MongooseAcademyRepository } from '../database/mongoose/repositories/Mon
   providers: [
     { provide: AcademyRepository, useClass: MongooseAcademyRepository },
     CreateAcademyUseCase,
+    ListGymsUseCase,
+    FindByIdAcademyUseCase,
   ],
 })
 export class HttpModule {}

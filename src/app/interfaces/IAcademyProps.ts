@@ -5,6 +5,7 @@ import { Plan } from '../entities/Plan';
 import { TelephoneNumber } from '../entities/TelephoneNumber';
 
 export interface IAcademyProps {
+  _id?: string;
   name: string;
   description: Description;
   email: string;

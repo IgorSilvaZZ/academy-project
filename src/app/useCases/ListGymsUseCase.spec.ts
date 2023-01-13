@@ -24,5 +24,11 @@ describe('List all Gyms', () => {
     const gyms = await listGymsUseCase.execute();
 
     expect(gyms).toHaveLength(3);
+    expect(gyms).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ email: 'test3@email.com' }),
+        expect.objectContaining({ name: 'Academy Two' }),
+      ]),
+    );
   });
 });

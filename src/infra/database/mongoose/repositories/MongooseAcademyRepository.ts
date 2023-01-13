@@ -8,6 +8,7 @@ import { IAcademy } from '../../../../app/interfaces/ICreateAcademyRequest';
 import { Academy } from '../../../../app/entities/Academy';
 import { AcademyRepository } from '../../../../app/repositories/AcademyRepository';
 import { MoongoseAcademyMapper } from '../mappers/MoongoseAcademyMapper';
+import { Plan } from 'src/app/entities/Plan';
 
 export interface IAcademyDocument extends IAcademy, Document {}
 @Injectable()
@@ -16,8 +17,24 @@ export class MongooseAcademyRepository implements AcademyRepository {
     @InjectModel('academy') private academyModel: Model<IAcademyDocument>,
   ) {}
 
+  async listGyms(): Promise<Academy[]> {
+    const gyms = await this.academyModel.find().exec();
+
+    return gyms.map(MoongoseAcademyMapper.toDomain);
+  }
+
   async findByEmail(email: string): Promise<Academy | null> {
     const academy = await this.academyModel.findOne({ email }).exec();
+
+    if (!academy) {
+      return null;
+    }
+
+    return MoongoseAcademyMapper.toDomain(academy);
+  }
+
+  async findById(id: string): Promise<Academy | null> {
+    const academy = await this.academyModel.findOne({ _id: id }).exec();
 
     if (!academy) {
       return null;
@@ -34,5 +51,9 @@ export class MongooseAcademyRepository implements AcademyRepository {
     await newAcademy.save();
 
     return academy;
+  }
+
+  createPlan(id: string, plan: Plan): Promise<Plan> {
+    throw new Error('Method not implemented.');
   }
 }

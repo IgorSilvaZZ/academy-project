@@ -45,6 +45,7 @@ export class MoongoseAcademyMapper {
     );
 
     return new Academy({
+      _id: academyDocument._id,
       name: academyDocument.name,
       email: academyDocument.email,
       password: academyDocument.password,

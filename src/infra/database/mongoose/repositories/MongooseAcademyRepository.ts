@@ -5,11 +5,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Document } from 'mongoose';
 
 import { IAcademy } from '../../../../app/interfaces/ICreateAcademyRequest';
-import { Academy } from '../../../../app/entities/Academy';
-import { AcademyRepository } from '../../../../app/repositories/AcademyRepository';
+
 import { MoongoseAcademyMapper } from '../mappers/MoongoseAcademyMapper';
-import { Plan } from 'src/app/entities/Plan';
 import { MoongosePlanMapper } from '../mappers/MoongosePlanMapper';
+import { AcademyRepository } from '../../../../app/repositories/AcademyRepository';
+
+import { Plan } from '../../../../app/entities/Plan';
+import { Academy } from '../../../../app/entities/Academy';
+import { Description } from '../../../../app/entities/Description';
 
 export interface IAcademyDocument extends IAcademy, Document {}
 @Injectable()
@@ -44,6 +47,25 @@ export class MongooseAcademyRepository implements AcademyRepository {
     return MoongoseAcademyMapper.toDomain(academy);
   }
 
+  async findByIdPlanAcademy(
+    idAcademy: string,
+    idPlan: string,
+  ): Promise<Plan | null> {
+    const academy = await this.academyModel.findOne({ _id: idAcademy }).exec();
+
+    const plan = academy?.plans.find((plan) => plan.planId === idPlan);
+
+    if (!plan) {
+      return null;
+    }
+
+    return new Plan({
+      name: plan.name,
+      description: new Description(plan.description),
+      value: plan.value,
+    });
+  }
+
   async create(academy: Academy): Promise<Academy> {
     const academyMoongose = MoongoseAcademyMapper.toMoongose(academy);
 
@@ -70,5 +92,14 @@ export class MongooseAcademyRepository implements AcademyRepository {
       .exec();
 
     return plan;
+  }
+
+  async deletePlanAcademy(idAcademy: string, idPlan: string): Promise<void> {
+    await this.academyModel
+      .findOneAndUpdate(
+        { _id: idAcademy },
+        { $pull: { plans: { planId: idPlan } } },
+      )
+      .exec();
   }
 }

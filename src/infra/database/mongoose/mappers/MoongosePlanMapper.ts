@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 
-import { Plan } from 'src/app/entities/Plan';
+import { Plan } from '../../../../app/entities/Plan';
 
 export class MoongosePlanMapper {
   static toMoongose(plan: Plan) {

@@ -31,6 +31,21 @@ export class AcademyRepositoryInMemory implements AcademyRepository {
     return academy;
   }
 
+  async findByIdPlanAcademy(
+    idAcademy: string,
+    idPlan: string,
+  ): Promise<Plan | null> {
+    const academy = this.gyms.find((academy) => academy._id === idAcademy);
+
+    const plan = academy?.plans.find((plan) => plan.planId === idPlan);
+
+    if (!plan) {
+      return null;
+    }
+
+    return plan;
+  }
+
   async create(academy: Academy): Promise<Academy> {
     this.gyms.push(academy);
 
@@ -43,5 +58,17 @@ export class AcademyRepositoryInMemory implements AcademyRepository {
     academy?.plans.push(plan);
 
     return plan;
+  }
+
+  async deletePlanAcademy(idAcademy: string, idPlan: string): Promise<void> {
+    const academyIndex = this.gyms.findIndex(
+      (academy) => academy._id === idAcademy,
+    );
+
+    const planIndex = this.gyms[academyIndex].plans.findIndex(
+      (plan) => plan.planId === idPlan,
+    );
+
+    this.gyms[academyIndex].plans.splice(planIndex, 1);
   }
 }

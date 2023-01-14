@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Delete } from '@nestjs/common';
 
 import { CreateAcademyDTO } from '../dtos/CreateAcademyDTO';
 import { CreatePlanDTO } from '../dtos/CreatePlanDTO';
@@ -11,6 +11,7 @@ import { FindByIdAcademyUseCase } from '../../../app/useCases/FindByIdAcademyUse
 import { ListGymsUseCase } from '../../../app/useCases/ListGymsUseCase';
 import { CreateAcademyUseCase } from '../../../app/useCases/CreateAcademyUseCase';
 import { CreatePlanAcademyUseCase } from '../../../app/useCases/CreatePlanAcademyUseCase';
+import { DeletePlanAcademyUseCase } from '../../../app/useCases/DeletePlanAcademyUseCase';
 
 @Controller('/gyms')
 export class AcademyController {
@@ -19,6 +20,7 @@ export class AcademyController {
     private readonly listGymsUseCase: ListGymsUseCase,
     private readonly findByIdAcademyUseCase: FindByIdAcademyUseCase,
     private readonly createPlanUseCase: CreatePlanAcademyUseCase,
+    private readonly deletePlanAcademyUseCase: DeletePlanAcademyUseCase,
   ) {}
 
   @Post('/')
@@ -55,5 +57,13 @@ export class AcademyController {
     });
 
     return PlanViewModel.toHttp(plan);
+  }
+
+  @Delete('/:idAcademy/plan/:idPlan')
+  async deletePlanAcademy(@Param() params: string[]) {
+    const idAcademy = params['idAcademy'];
+    const idPlan = params['idPlan'];
+
+    await this.deletePlanAcademyUseCase.execute(idAcademy, idPlan);
   }
 }

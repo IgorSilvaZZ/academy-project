@@ -9,4 +9,9 @@ export abstract class AcademyRepository {
   abstract listGyms(): Promise<Academy[]>;
   abstract findById(id: string): Promise<Academy | null>;
   abstract createPlan(id: string, plan: Plan): Promise<Plan | null>;
+  abstract findByIdPlanAcademy(
+    idAcademy: string,
+    idPlan: string,
+  ): Promise<Plan | null>;
+  abstract deletePlanAcademy(idAcademy: string, idPlan: string): Promise<void>;
 }

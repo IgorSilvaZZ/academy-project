@@ -5,7 +5,7 @@ import { Academy } from '../../../app/entities/Academy';
 export class AcademyViewModel {
   static toHttp(academy: Academy) {
     const plans = academy.plans.map((plan) => ({
-      id: plan.id,
+      planId: plan.planId,
       name: plan.name,
       description: plan.description.value,
       value: plan.value,

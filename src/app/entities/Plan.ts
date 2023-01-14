@@ -9,13 +9,13 @@ export class Plan {
   constructor(props: IPlanProps) {
     this.props = {
       ...props,
-      id: props.id ? props.id : randomUUID(),
+      planId: props.planId ? props.planId : randomUUID(),
       updatedAt: !props.updatedAt ? new Date() : props.updatedAt,
     };
   }
 
-  public get id() {
-    return this.props.id;
+  public get planId() {
+    return this.props.planId;
   }
 
   public get name() {

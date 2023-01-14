@@ -9,7 +9,7 @@ import { IAcademyDocument } from '../repositories/MongooseAcademyRepository';
 export class MoongoseAcademyMapper {
   static toMoongose(academy: Academy) {
     const plans = academy.plans.map((plan) => ({
-      id: String(plan.id),
+      planId: String(plan.planId),
       name: plan.name,
       description: plan.description.value,
       value: plan.value,
@@ -39,7 +39,7 @@ export class MoongoseAcademyMapper {
     const plans = academyDocument.plans.map(
       (plan) =>
         new Plan({
-          id: String(plan.id),
+          planId: String(plan.planId),
           name: plan.name,
           description: new Description(plan.description),
           value: plan.value,

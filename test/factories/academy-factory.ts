@@ -5,6 +5,7 @@ import { Academy } from '../../src/app/entities/Academy';
 import { Description } from '../../src/app/entities/Description';
 import { TelephoneNumber } from '../../src/app/entities/TelephoneNumber';
 import { IAcademyProps } from '../../src/app/interfaces/IAcademyProps';
+import { randomUUID } from 'crypto';
 
 type OverrideAcademyProps = Partial<IAcademyProps>;
 
@@ -12,6 +13,7 @@ export const makeAcademy = (
   overrideAcademy: OverrideAcademyProps = {},
 ): Academy => {
   return new Academy({
+    _id: randomUUID(),
     name: 'Academia Plus',
     email: 'academia@test.com',
     password: '123',

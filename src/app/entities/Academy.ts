@@ -26,14 +26,17 @@ export class Academy {
 
     this.props = {
       ...props,
-      _id: props._id ? props._id : randomUUID(),
       createdAt: new Date(),
       updatedAt: new Date(),
     };
   }
 
-  public get _id() {
+  public get _id(): string | undefined {
     return this.props._id;
+  }
+
+  public set _id(id: string | undefined) {
+    this.props._id = id;
   }
 
   public get name() {

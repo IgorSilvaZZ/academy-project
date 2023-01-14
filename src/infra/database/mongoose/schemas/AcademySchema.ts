@@ -43,7 +43,7 @@ export class AcademyCollection {
   @Prop()
   plans: [
     {
-      _id: string;
+      planId: string;
       name: string;
       description: string;
       value: number;

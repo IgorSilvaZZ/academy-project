@@ -31,7 +31,7 @@ export class CreateAcademyUseCase {
     const plans = request.plans.map(
       (plan) =>
         new Plan({
-          id: randomUUID(),
+          planId: randomUUID(),
           name: plan.name,
           description: new Description(plan.description),
           value: plan.value,

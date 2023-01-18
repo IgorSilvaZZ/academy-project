@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 
-import { makeAcademy } from '../../../test/factories/academy-factory';
-import { AcademyRepositoryInMemory } from '../../../test/repositories/AcademyRepositoryInMemory';
+import { makeAcademy } from '../../../../test/factories/academy-factory';
+import { AcademyRepositoryInMemory } from '../../../../test/repositories/AcademyRepositoryInMemory';
 import { ListGymsUseCase } from './ListGymsUseCase';
 
 describe('List all Gyms', () => {

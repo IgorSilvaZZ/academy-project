@@ -3,7 +3,7 @@
 import { Injectable } from '@nestjs/common';
 import { NotFoundException } from '@nestjs/common/exceptions';
 
-import { AcademyRepository } from '../repositories/AcademyRepository';
+import { AcademyRepository } from '../../repositories/AcademyRepository';
 
 @Injectable()
 export class DeletePlanAcademyUseCase {

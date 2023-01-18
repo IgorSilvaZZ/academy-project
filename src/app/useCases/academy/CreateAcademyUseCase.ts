@@ -4,12 +4,12 @@ import { Injectable } from '@nestjs/common/decorators';
 import { BadRequestException } from '@nestjs/common/exceptions';
 import { randomUUID } from 'crypto';
 
-import { Academy } from '../entities/Academy';
-import { Description } from '../entities/Description';
-import { Plan } from '../entities/Plan';
-import { TelephoneNumber } from '../entities/TelephoneNumber';
-import { IAcademy } from '../interfaces/ICreateAcademyRequest';
-import { AcademyRepository } from '../repositories/AcademyRepository';
+import { Academy } from '../../entities/Academy';
+import { Description } from '../../entities/Description';
+import { Plan } from '../../entities/Plan';
+import { TelephoneNumber } from '../../entities/TelephoneNumber';
+import { IAcademy } from '../../interfaces/ICreateAcademyRequest';
+import { AcademyRepository } from '../../repositories/AcademyRepository';
 
 export interface CreateAcademyResponse {
   academy: Academy;

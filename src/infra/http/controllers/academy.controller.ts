@@ -7,11 +7,12 @@ import { CreatePlanDTO } from '../dtos/CreatePlanDTO';
 import { AcademyViewModel } from '../view-models/AcademyViewModel';
 import { PlanViewModel } from '../view-models/PlanViewModel';
 
-import { FindByIdAcademyUseCase } from '../../../app/useCases/FindByIdAcademyUseCase';
-import { ListGymsUseCase } from '../../../app/useCases/ListGymsUseCase';
-import { CreateAcademyUseCase } from '../../../app/useCases/CreateAcademyUseCase';
-import { CreatePlanAcademyUseCase } from '../../../app/useCases/CreatePlanAcademyUseCase';
-import { DeletePlanAcademyUseCase } from '../../../app/useCases/DeletePlanAcademyUseCase';
+import { FindByIdAcademyUseCase } from '../../../app/useCases/academy/FindByIdAcademyUseCase';
+import { ListGymsUseCase } from '../../../app/useCases/academy/ListGymsUseCase';
+import { CreateAcademyUseCase } from '../../../app/useCases/academy/CreateAcademyUseCase';
+import { CreatePlanAcademyUseCase } from '../../../app/useCases/academy/CreatePlanAcademyUseCase';
+import { DeletePlanAcademyUseCase } from '../../../app/useCases/academy/DeletePlanAcademyUseCase';
+import { ListPlanAcademyUseCase } from 'src/app/useCases/academy/ListPlanAcademyUseCase';
 
 @Controller('/gyms')
 export class AcademyController {
@@ -19,6 +20,7 @@ export class AcademyController {
     private readonly createAcademyUseCase: CreateAcademyUseCase,
     private readonly listGymsUseCase: ListGymsUseCase,
     private readonly findByIdAcademyUseCase: FindByIdAcademyUseCase,
+    private readonly listPlanAcademyUseCase: ListPlanAcademyUseCase,
     private readonly createPlanUseCase: CreatePlanAcademyUseCase,
     private readonly deletePlanAcademyUseCase: DeletePlanAcademyUseCase,
   ) {}
@@ -55,6 +57,19 @@ export class AcademyController {
       id,
       plan: createPlanDTO,
     });
+
+    return PlanViewModel.toHttp(plan);
+  }
+
+  @Get('/:idAcademy/plan/:idPlan')
+  async findByIdPlanAcademy(@Param() params: string[]) {
+    const idAcademy = params['idAcademy'];
+    const idPlan = params['idPlan'];
+
+    const { plan } = await this.listPlanAcademyUseCase.execute(
+      idAcademy,
+      idPlan,
+    );
 
     return PlanViewModel.toHttp(plan);
   }

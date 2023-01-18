@@ -4,9 +4,9 @@ import { Injectable } from '@nestjs/common';
 
 import { NotFoundException } from '@nestjs/common/exceptions';
 
-import { Plan } from '../entities/Plan';
-import { Description } from '../entities/Description';
-import { AcademyRepository } from '../repositories/AcademyRepository';
+import { Plan } from '../../entities/Plan';
+import { Description } from '../../entities/Description';
+import { AcademyRepository } from '../../repositories/AcademyRepository';
 
 interface ICreatePlanRequest {
   id: string;

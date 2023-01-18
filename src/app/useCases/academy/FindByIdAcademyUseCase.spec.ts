@@ -2,8 +2,8 @@
 
 import { NotFoundException } from '@nestjs/common/exceptions';
 
-import { makeAcademy } from '../../../test/factories/academy-factory';
-import { AcademyRepositoryInMemory } from '../../../test/repositories/AcademyRepositoryInMemory';
+import { makeAcademy } from '../../../../test/factories/academy-factory';
+import { AcademyRepositoryInMemory } from '../../../../test/repositories/AcademyRepositoryInMemory';
 import { FindByIdAcademyUseCase } from './FindByIdAcademyUseCase';
 
 let academyRepository: AcademyRepositoryInMemory;

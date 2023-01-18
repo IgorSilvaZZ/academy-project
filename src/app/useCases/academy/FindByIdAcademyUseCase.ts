@@ -3,8 +3,8 @@
 import { Injectable } from '@nestjs/common';
 import { NotFoundException } from '@nestjs/common/exceptions';
 
-import { Academy } from '../entities/Academy';
-import { AcademyRepository } from '../repositories/AcademyRepository';
+import { Academy } from '../../entities/Academy';
+import { AcademyRepository } from '../../repositories/AcademyRepository';
 
 @Injectable()
 export class FindByIdAcademyUseCase {

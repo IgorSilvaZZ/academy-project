@@ -5,13 +5,14 @@ import { Module } from '@nestjs/common';
 
 import { AcademyController } from './controllers/academy.controller';
 import { AcademySchema } from '../database/mongoose/schemas/AcademySchema';
-import { CreateAcademyUseCase } from '../../../src/app/useCases/CreateAcademyUseCase';
+import { CreateAcademyUseCase } from '../../app/useCases/academy/CreateAcademyUseCase';
 import { AcademyRepository } from '../../../src/app/repositories/AcademyRepository';
 import { MongooseAcademyRepository } from '../database/mongoose/repositories/MongooseAcademyRepository';
-import { ListGymsUseCase } from '../../../src/app/useCases/ListGymsUseCase';
-import { FindByIdAcademyUseCase } from '../../../src/app/useCases/FindByIdAcademyUseCase';
-import { CreatePlanAcademyUseCase } from '../../../src/app/useCases/CreatePlanAcademyUseCase';
-import { DeletePlanAcademyUseCase } from '../../../src/app/useCases/DeletePlanAcademyUseCase';
+import { ListGymsUseCase } from '../../app/useCases/academy/ListGymsUseCase';
+import { FindByIdAcademyUseCase } from '../../app/useCases/academy/FindByIdAcademyUseCase';
+import { CreatePlanAcademyUseCase } from '../../app/useCases/academy/CreatePlanAcademyUseCase';
+import { DeletePlanAcademyUseCase } from '../../app/useCases/academy/DeletePlanAcademyUseCase';
+import { ListPlanAcademyUseCase } from 'src/app/useCases/academy/ListPlanAcademyUseCase';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { DeletePlanAcademyUseCase } from '../../../src/app/useCases/DeletePlanAc
     CreateAcademyUseCase,
     ListGymsUseCase,
     FindByIdAcademyUseCase,
+    ListPlanAcademyUseCase,
     CreatePlanAcademyUseCase,
     DeletePlanAcademyUseCase,
   ],

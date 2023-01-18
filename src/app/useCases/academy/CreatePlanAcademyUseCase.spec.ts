@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 
-import { AcademyRepositoryInMemory } from '../../../test/repositories/AcademyRepositoryInMemory';
+import { AcademyRepositoryInMemory } from '../../../../test/repositories/AcademyRepositoryInMemory';
 import { CreatePlanAcademyUseCase } from './CreatePlanAcademyUseCase';
-import { makeAcademy } from '../../../test/factories/academy-factory';
+import { makeAcademy } from '../../../../test/factories/academy-factory';
 
 let academyRepository: AcademyRepositoryInMemory;
 let createPlanAcademyPlanUseCase: CreatePlanAcademyUseCase;

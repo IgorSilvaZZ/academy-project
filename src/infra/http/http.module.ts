@@ -12,7 +12,8 @@ import { ListGymsUseCase } from '../../app/useCases/academy/ListGymsUseCase';
 import { FindByIdAcademyUseCase } from '../../app/useCases/academy/FindByIdAcademyUseCase';
 import { CreatePlanAcademyUseCase } from '../../app/useCases/academy/CreatePlanAcademyUseCase';
 import { DeletePlanAcademyUseCase } from '../../app/useCases/academy/DeletePlanAcademyUseCase';
-import { ListPlanAcademyUseCase } from 'src/app/useCases/academy/ListPlanAcademyUseCase';
+import { ListPlanAcademyUseCase } from '../../app/useCases/academy/ListPlanAcademyUseCase';
+import { UpdatePlanAcademyUseCase } from '../../app/useCases/academy/UpdatePlanAcademyUseCase';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { ListPlanAcademyUseCase } from 'src/app/useCases/academy/ListPlanAcademy
     ListPlanAcademyUseCase,
     CreatePlanAcademyUseCase,
     DeletePlanAcademyUseCase,
+    UpdatePlanAcademyUseCase,
   ],
 })
 export class HttpModule {}

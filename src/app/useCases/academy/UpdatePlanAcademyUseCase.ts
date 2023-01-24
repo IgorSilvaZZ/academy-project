@@ -2,7 +2,7 @@
 
 import { AcademyRepository } from '../../repositories/AcademyRepository';
 import { Plan } from '../../entities/Plan';
-import { NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Description } from '../../entities/Description';
 
 interface IUpdatePlanRequest {
@@ -17,6 +17,7 @@ interface IPlanUpdateResponse {
   plan: Plan;
 }
 
+@Injectable()
 export class UpdatePlanAcademyUseCase {
   constructor(private academyRepository: AcademyRepository) {}
 

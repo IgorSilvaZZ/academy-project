@@ -60,6 +60,7 @@ export class MongooseAcademyRepository implements AcademyRepository {
     }
 
     return new Plan({
+      planId: plan.planId,
       name: plan.name,
       description: new Description(plan.description),
       value: plan.value,
@@ -92,6 +93,27 @@ export class MongooseAcademyRepository implements AcademyRepository {
       .exec();
 
     return plan;
+  }
+
+  async updatePlanAcademy(idAcademy: string, planUpdated: Plan): Promise<Plan> {
+    const planMoongose = MoongosePlanMapper.toMoongose(planUpdated);
+
+    const plan = await this.academyModel
+      .updateOne(
+        { _id: idAcademy, 'plans.planId': planUpdated.planId },
+        {
+          $set: {
+            'plans.$.name': planMoongose.name,
+            'plans.$.description': planMoongose.name,
+            'plans.$.value': planMoongose.value,
+          },
+        },
+      )
+      .exec();
+
+    console.log(plan);
+
+    return planUpdated;
   }
 
   async deletePlanAcademy(idAcademy: string, idPlan: string): Promise<void> {

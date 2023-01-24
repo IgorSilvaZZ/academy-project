@@ -1,9 +1,18 @@
 /* eslint-disable prettier/prettier */
 
-import { Body, Controller, Get, Param, Post, Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Delete,
+  Put,
+} from '@nestjs/common';
 
 import { CreateAcademyDTO } from '../dtos/CreateAcademyDTO';
 import { CreatePlanDTO } from '../dtos/CreatePlanDTO';
+import { UpdatePlanDTO } from '../dtos/UpdatePlanDTO';
 import { AcademyViewModel } from '../view-models/AcademyViewModel';
 import { PlanViewModel } from '../view-models/PlanViewModel';
 
@@ -12,7 +21,9 @@ import { ListGymsUseCase } from '../../../app/useCases/academy/ListGymsUseCase';
 import { CreateAcademyUseCase } from '../../../app/useCases/academy/CreateAcademyUseCase';
 import { CreatePlanAcademyUseCase } from '../../../app/useCases/academy/CreatePlanAcademyUseCase';
 import { DeletePlanAcademyUseCase } from '../../../app/useCases/academy/DeletePlanAcademyUseCase';
-import { ListPlanAcademyUseCase } from 'src/app/useCases/academy/ListPlanAcademyUseCase';
+import { ListPlanAcademyUseCase } from '../../../app/useCases/academy/ListPlanAcademyUseCase';
+import { UpdatePlanAcademyUseCase } from '../../../app/useCases/academy/UpdatePlanAcademyUseCase';
+import { useParams } from 'react-router-dom';
 
 @Controller('/gyms')
 export class AcademyController {
@@ -23,6 +34,7 @@ export class AcademyController {
     private readonly listPlanAcademyUseCase: ListPlanAcademyUseCase,
     private readonly createPlanUseCase: CreatePlanAcademyUseCase,
     private readonly deletePlanAcademyUseCase: DeletePlanAcademyUseCase,
+    private readonly updatePlanAcademyUseCase: UpdatePlanAcademyUseCase,
   ) {}
 
   @Post('/')
@@ -70,6 +82,25 @@ export class AcademyController {
       idAcademy,
       idPlan,
     );
+
+    return PlanViewModel.toHttp(plan);
+  }
+
+  @Put('/:idAcademy/plan/:idPlan')
+  async updatePlanAcademy(
+    @Param() params: string[],
+    @Body() updatePlanDTO: UpdatePlanDTO,
+  ) {
+    const idAcademy = params['idAcademy'];
+    const idPlan = params['idPlan'];
+
+    const request = {
+      idAcademy,
+      idPlan,
+      ...updatePlanDTO,
+    };
+
+    const { plan } = await this.updatePlanAcademyUseCase.execute(request);
 
     return PlanViewModel.toHttp(plan);
   }

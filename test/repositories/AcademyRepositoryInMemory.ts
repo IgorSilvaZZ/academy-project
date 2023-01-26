@@ -60,6 +60,16 @@ export class AcademyRepositoryInMemory implements AcademyRepository {
     return plan;
   }
 
+  async updateAcademy(idAcademy: string, academy: Academy): Promise<Academy> {
+    const academyIndex = this.gyms.findIndex(
+      (academyFind) => academyFind._id === idAcademy,
+    );
+
+    const academyUpdated = (this.gyms[academyIndex] = academy);
+
+    return academyUpdated;
+  }
+
   async updatePlanAcademy(idAcademy: string, planUpdated: Plan): Promise<Plan> {
     const academyIndex = this.gyms.findIndex(
       (academy) => academy._id === idAcademy,

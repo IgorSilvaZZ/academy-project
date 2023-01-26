@@ -17,6 +17,7 @@ export abstract class AcademyRepository {
     idAcademy: string,
     planUpdated: Plan,
   ): Promise<Plan>;
+  abstract updateAcademy(idAcademy: string, academy: Academy): Promise<Academy>;
 
   abstract deletePlanAcademy(idAcademy: string, idPlan: string): Promise<void>;
 }

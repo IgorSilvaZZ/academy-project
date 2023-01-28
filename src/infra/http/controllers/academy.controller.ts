@@ -13,6 +13,7 @@ import {
 import { CreateAcademyDTO } from '../dtos/CreateAcademyDTO';
 import { CreatePlanDTO } from '../dtos/CreatePlanDTO';
 import { UpdatePlanDTO } from '../dtos/UpdatePlanDTO';
+import { UpdateAcademyDTO } from '../dtos/UpdateAcademyDTO';
 import { AcademyViewModel } from '../view-models/AcademyViewModel';
 import { PlanViewModel } from '../view-models/PlanViewModel';
 
@@ -23,7 +24,7 @@ import { CreatePlanAcademyUseCase } from '../../../app/useCases/academy/CreatePl
 import { DeletePlanAcademyUseCase } from '../../../app/useCases/academy/DeletePlanAcademyUseCase';
 import { ListPlanAcademyUseCase } from '../../../app/useCases/academy/ListPlanAcademyUseCase';
 import { UpdatePlanAcademyUseCase } from '../../../app/useCases/academy/UpdatePlanAcademyUseCase';
-import { useParams } from 'react-router-dom';
+import { UpdateAcademyUseCase } from '../../../app/useCases/academy/UpdateAcademyUseCase';
 
 @Controller('/gyms')
 export class AcademyController {
@@ -32,6 +33,7 @@ export class AcademyController {
     private readonly listGymsUseCase: ListGymsUseCase,
     private readonly findByIdAcademyUseCase: FindByIdAcademyUseCase,
     private readonly listPlanAcademyUseCase: ListPlanAcademyUseCase,
+    private readonly updateAcademyUseCase: UpdateAcademyUseCase,
     private readonly createPlanUseCase: CreatePlanAcademyUseCase,
     private readonly deletePlanAcademyUseCase: DeletePlanAcademyUseCase,
     private readonly updatePlanAcademyUseCase: UpdatePlanAcademyUseCase,
@@ -84,6 +86,19 @@ export class AcademyController {
     );
 
     return PlanViewModel.toHttp(plan);
+  }
+
+  @Put('/:id')
+  async updateAcademy(
+    @Param('id') id: string,
+    @Body() updateAcademyDTO: UpdateAcademyDTO,
+  ) {
+    const { academy } = await this.updateAcademyUseCase.execute({
+      idAcademy: id,
+      academy: updateAcademyDTO,
+    });
+
+    return AcademyViewModel.toHttp(academy);
   }
 
   @Put('/:idAcademy/plan/:idPlan')

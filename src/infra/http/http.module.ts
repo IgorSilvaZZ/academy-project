@@ -10,6 +10,7 @@ import { AcademyRepository } from '../../../src/app/repositories/AcademyReposito
 import { MongooseAcademyRepository } from '../database/mongoose/repositories/MongooseAcademyRepository';
 import { ListGymsUseCase } from '../../app/useCases/academy/ListGymsUseCase';
 import { FindByIdAcademyUseCase } from '../../app/useCases/academy/FindByIdAcademyUseCase';
+import { UpdateAcademyUseCase } from '../../app/useCases/academy/UpdateAcademyUseCase';
 import { CreatePlanAcademyUseCase } from '../../app/useCases/academy/CreatePlanAcademyUseCase';
 import { DeletePlanAcademyUseCase } from '../../app/useCases/academy/DeletePlanAcademyUseCase';
 import { ListPlanAcademyUseCase } from '../../app/useCases/academy/ListPlanAcademyUseCase';
@@ -25,6 +26,7 @@ import { UpdatePlanAcademyUseCase } from '../../app/useCases/academy/UpdatePlanA
     CreateAcademyUseCase,
     ListGymsUseCase,
     FindByIdAcademyUseCase,
+    UpdateAcademyUseCase,
     ListPlanAcademyUseCase,
     CreatePlanAcademyUseCase,
     DeletePlanAcademyUseCase,

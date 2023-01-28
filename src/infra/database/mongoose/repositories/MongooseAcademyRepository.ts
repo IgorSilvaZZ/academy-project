@@ -98,7 +98,7 @@ export class MongooseAcademyRepository implements AcademyRepository {
   async updatePlanAcademy(idAcademy: string, planUpdated: Plan): Promise<Plan> {
     const planMoongose = MoongosePlanMapper.toMoongose(planUpdated);
 
-    const plan = await this.academyModel
+    await this.academyModel
       .updateOne(
         { _id: idAcademy, 'plans.planId': planUpdated.planId },
         {
@@ -111,9 +111,23 @@ export class MongooseAcademyRepository implements AcademyRepository {
       )
       .exec();
 
-    console.log(plan);
-
     return planUpdated;
+  }
+
+  async updateAcademy(idAcademy: string, academy: Academy): Promise<Academy> {
+    const academyMongoose = MoongoseAcademyMapper.toMoongose(academy);
+
+    const updatedAcademy = await this.academyModel
+      .findOneAndUpdate(
+        { _id: idAcademy },
+        {
+          $set: academyMongoose,
+        },
+        { new: true },
+      )
+      .exec();
+
+    return MoongoseAcademyMapper.toDomain(updatedAcademy as IAcademyDocument);
   }
 
   async deletePlanAcademy(idAcademy: string, idPlan: string): Promise<void> {

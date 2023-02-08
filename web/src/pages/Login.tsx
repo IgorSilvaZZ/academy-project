@@ -1,18 +1,11 @@
 import { SignIn } from "phosphor-react";
 
-import headerImg from "../assets/header-login-image.png";
-import loginImg from "../assets/login-image.svg";
+import loginImg from "../assets/login-image.png";
 
 export const Login = () => {
   return (
     <div className='w-screen h-screen mx-auto flex items-center justify-around'>
       <div className='w-full max-w-md flex flex-col'>
-        <img
-          src={headerImg}
-          alt='Muscle image header login'
-          className='w-[250px] mx-auto'
-        />
-
         <span className='text-gray-300 font-semibold text-4xl mt-10 mb-4'>
           Faça seu Login
         </span>
@@ -38,7 +31,7 @@ export const Login = () => {
           Nao tenho cadastro
         </span>
       </div>
-      <img src={loginImg} alt='Login Image' className='w-[550px]' />
+      <img src={loginImg} alt='Login Image' className='w-[400px]' />
     </div>
   );
 };

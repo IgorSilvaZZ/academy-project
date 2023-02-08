@@ -4,8 +4,8 @@ export const StepOne = () => {
   return (
     <>
       <div className='w-[600px] h-full flex flex-col justify-around items-center bg-zinc-700 rounded-l-lg'>
-        <span className='text-4xl text-white leading-tight font-semibold p-5'>
-          Precisamos que você, preencha os campos ao lado para começar!!
+        <span className='text-3xl text-white leading-tight font-semibold px-7 py-4'>
+          Precisamos que você preencha os campos ao lado para começar!!
         </span>
 
         <img src={firstStepImage} className='w-[300px]' />

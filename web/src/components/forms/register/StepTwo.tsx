@@ -4,7 +4,7 @@ export const StepTwo = () => {
   return (
     <>
       <div className='w-[600px] h-full flex flex-col justify-around items-center bg-zinc-700 rounded-l-lg'>
-        <span className='text-4xl text-white leading-tight font-semibold p-5'>
+        <span className='text-3xl text-white leading-tight font-semibold px-7 py-4'>
           Queremos saber da onde você é! Coloque todas as informações ao lado da
           sua localização.
         </span>

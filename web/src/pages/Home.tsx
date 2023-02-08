@@ -4,7 +4,7 @@ export const Home = () => {
   return (
     <div className='w-screen h-screen mx-auto flex items-center justify-around'>
       <main className='w-full max-w-lg flex flex-col gap-3'>
-        <h1 className='mt-14 text-white text-5xl font-bold leading-tight'>
+        <h1 className='mt-14 mb-5 text-white text-5xl font-bold leading-tight'>
           Procure a academia mais proxima de você!!
         </h1>
 
@@ -27,13 +27,13 @@ export const Home = () => {
 
         <div className='flex items-center justify-center'>
           <p className='text-base text-gray-300 font-semibold'>
-            Para Academias:
+            Para Academias
           </p>
         </div>
 
         <div className='pt-10 border-t border-violet-500 flex justify-between items-center text-gray-100'>
           <div className='flex flex-col gap-3 leading-relaxed items-center justify-center w-80'>
-            <button className='py-2 px-10 bg-violet-600 text-white font-semibold rounded transition-colors hover:bg-violet-800'>
+            <button className='py-2 px-10 bg-violet-600 text-white font-semibold rounded-lg transition-colors hover:bg-violet-800'>
               Logar-se
             </button>
           </div>
@@ -41,7 +41,7 @@ export const Home = () => {
           <div className='w-px h-10 bg-violet-500'></div>
 
           <div className='flex flex-col gap-3 items-center justify-center w-80'>
-            <button className='py-2 px-10 bg-violet-600 text-white font-semibold rounded transition-colors hover:bg-violet-800'>
+            <button className='py-2 px-10 bg-violet-600 text-white font-semibold rounded-lg transition-colors hover:bg-violet-800'>
               Registrar-se
             </button>
           </div>

@@ -15,14 +15,6 @@ interface IAcademy {
   number: string;
   openingTime: string;
   password: string;
-  plans?: [
-    {
-      planId: string;
-      name: string;
-      description: string;
-      value: number;
-    }
-  ];
   postalCode: string;
 }
 
@@ -33,8 +25,11 @@ interface RegisterContextProps {
 }
 
 export interface IRegisterContext {
+  step: number;
   registerForm?: IAcademy;
-  setRegisterFormState: (registerForm: PartialAcademyProps) => void;
+  advancedStep: () => void;
+  backStep: () => void;
+  handleStateForm: (name: string, value: number | string) => void;
   submitForm: () => void;
 }
 
@@ -42,20 +37,35 @@ export const RegisterContext = createContext({} as IRegisterContext);
 
 export const RegisterContextProvider = ({ children }: RegisterContextProps) => {
   const [registerForm, setRegisterForm] = useState<IAcademy>({} as IAcademy);
+  const [step, setStep] = useState(1);
+
+  function advancedStep() {
+    setStep((prevState) => prevState + 1);
+  }
+
+  function backStep() {
+    setStep((prevState) => prevState - 1);
+  }
 
   function submitForm() {
     console.log(registerForm);
   }
 
-  function setRegisterFormState(data: PartialAcademyProps) {
-    setRegisterForm(data as IAcademy);
+  function handleStateForm(name: string, value: number | string) {
+    setRegisterForm({
+      ...registerForm,
+      [name]: value,
+    });
   }
 
   return (
     <RegisterContext.Provider
       value={{
+        step: step,
         registerForm,
-        setRegisterFormState,
+        advancedStep: advancedStep,
+        backStep: backStep,
+        handleStateForm: handleStateForm,
         submitForm,
       }}
     >

@@ -1,7 +1,11 @@
 import * as Checkbox from "@radix-ui/react-checkbox";
 import { Check } from "phosphor-react";
 
+import { useRegister } from "../../../hooks/useRegister";
+
 export const StepFour = () => {
+  const { registerForm, handleStateForm } = useRegister();
+
   const daysOfWeek = [
     "Domingo",
     "Segunda-Feira",
@@ -22,6 +26,8 @@ export const StepFour = () => {
         <input
           type='time'
           className='h-14 w-full text-gray-300 font-semibold border-b border-b-zinc-500 bg-transparent outline-none hover:border-zinc-700'
+          value={registerForm?.openingTime}
+          onChange={(e) => handleStateForm("openingTime", e.target.value)}
         />
       </div>
 
@@ -33,6 +39,8 @@ export const StepFour = () => {
         <input
           type='time'
           className='h-14 w-full text-gray-300 font-semibold border-b border-b-zinc-500 bg-transparent outline-none hover:border-zinc-700'
+          value={registerForm?.closingTime}
+          onChange={(e) => handleStateForm("closingTime", e.target.value)}
         />
       </div>
 

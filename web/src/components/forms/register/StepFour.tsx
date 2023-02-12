@@ -16,6 +16,29 @@ export const StepFour = () => {
     "Sabado",
   ];
 
+  function handleToggleWeekDay(weekDaySelect: string) {
+    const weekDays =
+      registerForm!.daysOfWeek.length > 0
+        ? registerForm!.daysOfWeek.split(",").map((day) => day.trim())
+        : [];
+
+    const weekDay = weekDaySelect.charAt(0);
+
+    if (weekDays.includes(weekDay)) {
+      const weekDaysWithRemovedOne = weekDays
+        .filter((day) => day !== weekDay)
+        .join(",");
+
+      handleStateForm("daysOfWeek", weekDaysWithRemovedOne);
+    } else {
+      const weekDaysWithAddedOne = [...weekDays, weekDay].join(",");
+
+      handleStateForm("daysOfWeek", weekDaysWithAddedOne);
+    }
+
+    console.log(registerForm?.daysOfWeek);
+  }
+
   return (
     <>
       <div className='w-full max-w-md flex flex-col gap-1'>
@@ -53,6 +76,11 @@ export const StepFour = () => {
           <Checkbox.Root
             key={index}
             className='flex items-center gap-3 focus:outline-none'
+            onCheckedChange={() => handleToggleWeekDay(day)}
+            checked={registerForm?.daysOfWeek
+              ?.split(",")
+              ?.map((day) => day.trim())
+              ?.includes(day.charAt(0))}
           >
             <div className='h-7 w-7 rounded-lg flex items-center justify-center bg-zinc-900 border-2 border-zinc-800'>
               <Checkbox.Indicator>

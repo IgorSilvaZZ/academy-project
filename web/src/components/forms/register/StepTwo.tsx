@@ -1,3 +1,5 @@
+import InputMask from "react-input-mask";
+
 import { useRegister } from "../../../hooks/useRegister";
 
 export const StepTwo = () => {
@@ -38,10 +40,11 @@ export const StepTwo = () => {
           onChange={(e) => handleStateForm("number", e.target.value)}
         />
 
-        <input
+        <InputMask
           type='text'
           className='h-14 w-[220px] text-gray-300 font-semibold border-b border-b-zinc-500 bg-transparent outline-none hover:border-zinc-700'
           placeholder='Cep'
+          mask='99999-999'
           value={registerForm?.postalCode}
           onChange={(e) => handleStateForm("postalCode", e.target.value)}
         />

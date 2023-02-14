@@ -1,11 +1,9 @@
 import "./styles/global.css";
 
-import { Home } from "./pages/Home";
-import { Login } from "./pages/Login";
-import { Register } from "./pages/Register";
+import { RoutesApp } from "./routes";
 
 function App() {
-  return <Register />;
+  return <RoutesApp />;
 }
 
 export default App;

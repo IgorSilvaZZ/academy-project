@@ -11,7 +11,7 @@ import stepImageThree from "../../../assets/step-three-image.png";
 import stepImageFour from "../../../assets/step-four-register-image.png";
 
 export const RegisterForm = () => {
-  const { step, advancedStep, backStep, submitForm } = useRegister();
+  const { step, advancedStep, backStep } = useRegister();
 
   const isLastStep = step === 4;
 
@@ -59,7 +59,7 @@ export const RegisterForm = () => {
 
           <button
             className='p-3 bg-violet-600 w-[240px] text-white font-semibold border-none rounded-2xl text-center transition-colors hover:bg-violet-800'
-            onClick={isLastStep ? submitForm : advancedStep}
+            onClick={advancedStep}
           >
             {isLastStep ? "Finalizar" : "Avançar"}
           </button>

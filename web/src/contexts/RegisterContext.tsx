@@ -7,7 +7,7 @@ interface IAcademy {
   address: string;
   city: string;
   email: string;
-  daysOfWeek: string;
+  daysOfWeek: string[];
   description: string;
   telephoneNumber: string;
   closingTime: string;
@@ -31,7 +31,7 @@ export interface IRegisterContext {
   registerForm?: IAcademy;
   advancedStep: () => void;
   backStep: () => void;
-  handleStateForm: (name: string, value: number | string) => void;
+  handleStateForm: (name: string, value: number | string | string[]) => void;
   submitForm: () => void;
 }
 
@@ -67,6 +67,7 @@ export const RegisterContextProvider = ({ children }: RegisterContextProps) => {
       stepFour: {
         openingTime: registerData.openingTime,
         closingTime: registerData.closingTime,
+        daysOfWeek: registerData.daysOfWeek,
       },
     };
 
@@ -80,7 +81,11 @@ export const RegisterContextProvider = ({ children }: RegisterContextProps) => {
     stepSchema
       .validate(stepData, { abortEarly: false })
       .then(() => {
-        setStep((prevState) => prevState + 1);
+        if (step >= 1 && step <= 3) {
+          setStep((prevState) => prevState + 1);
+        } else {
+          submitForm();
+        }
       })
       .catch((error) => {
         if (error instanceof Yup.ValidationError) {
@@ -126,14 +131,28 @@ export const RegisterContextProvider = ({ children }: RegisterContextProps) => {
   async function validationStepThree() {
     const stepThreeSchema = Yup.object({
       description: Yup.string()
-        .min(10, "Descrição deve ter no minimo 10 caracteres")
-        .max(300, "Descrição teve o limite de 300 caracteres excedido")
-        .required("Preencha a descrição"),
+        .min(10, "Descrição deve ter no minimo 10 caracteres!!")
+        .max(300, "Descrição teve o limite de 300 caracteres excedido!!")
+        .required("Preencha a descrição!!"),
     });
 
     const stepThreeData = getDataValidationStep("stepThree", registerForm);
 
     validateSchema(stepThreeSchema, stepThreeData);
+  }
+
+  async function validationStepFour() {
+    const stepFourSchema = Yup.object({
+      openingTime: Yup.string().required("Prencha o horario de abertura!!"),
+      closingTime: Yup.string().required("Preencha o horario de fechamento!!"),
+      daysOfWeek: Yup.array()
+        .min(4, "Selecione pelo menos 4 dias da semana!!")
+        .required("Selecione o dia de abertura"),
+    });
+
+    const stepFourData = getDataValidationStep("stepFour", registerForm);
+
+    validateSchema(stepFourSchema, stepFourData);
   }
 
   async function advancedStep() {
@@ -143,6 +162,8 @@ export const RegisterContextProvider = ({ children }: RegisterContextProps) => {
       await validationStepTwo();
     } else if (step === 3) {
       await validationStepThree();
+    } else if (step === 4) {
+      await validationStepFour();
     }
   }
 
@@ -151,10 +172,21 @@ export const RegisterContextProvider = ({ children }: RegisterContextProps) => {
   }
 
   function submitForm() {
-    console.log(registerForm);
+    // daysOfWeek Transformar para string quando for mandar para API
+
+    const formattedDaysOfWeek = registerForm.daysOfWeek
+      .map((day) => day.trim())
+      .join(",");
+
+    const newAcademyData = {
+      ...registerForm,
+      daysOfWeek: formattedDaysOfWeek,
+    };
+
+    console.log(newAcademyData);
   }
 
-  function handleStateForm(name: string, value: number | string) {
+  function handleStateForm(name: string, value: number | string | string[]) {
     setRegisterForm({
       ...registerForm,
       [name]: value,

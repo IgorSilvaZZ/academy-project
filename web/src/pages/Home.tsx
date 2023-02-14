@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import ladingImg from "../assets/lading-page-image.png";
 
 export const Home = () => {
@@ -33,17 +35,23 @@ export const Home = () => {
 
         <div className='pt-10 border-t border-violet-500 flex justify-between items-center text-gray-100'>
           <div className='flex flex-col gap-3 leading-relaxed items-center justify-center w-80'>
-            <button className='py-2 px-10 bg-violet-600 text-white font-semibold rounded-lg transition-colors hover:bg-violet-800'>
+            <Link
+              to='/loginAcademy'
+              className='py-2 px-10 bg-violet-600 text-white font-semibold rounded-lg transition-colors hover:bg-violet-800'
+            >
               Logar-se
-            </button>
+            </Link>
           </div>
 
           <div className='w-px h-10 bg-violet-500'></div>
 
           <div className='flex flex-col gap-3 items-center justify-center w-80'>
-            <button className='py-2 px-10 bg-violet-600 text-white font-semibold rounded-lg transition-colors hover:bg-violet-800'>
+            <Link
+              to='registerAcademy'
+              className='py-2 px-10 bg-violet-600 text-white font-semibold rounded-lg transition-colors hover:bg-violet-800'
+            >
               Registrar-se
-            </button>
+            </Link>
           </div>
         </div>
       </main>

@@ -17,26 +17,19 @@ export const StepFour = () => {
   ];
 
   function handleToggleWeekDay(weekDaySelect: string) {
-    const weekDays =
-      registerForm!.daysOfWeek.length > 0
-        ? registerForm!.daysOfWeek.split(",").map((day) => day.trim())
-        : [];
+    const weekDays = registerForm!.daysOfWeek ? registerForm!.daysOfWeek : [];
 
-    const weekDay = weekDaySelect.charAt(0);
-
-    if (weekDays.includes(weekDay)) {
-      const weekDaysWithRemovedOne = weekDays
-        .filter((day) => day !== weekDay)
-        .join(",");
+    if (weekDays.includes(weekDaySelect)) {
+      const weekDaysWithRemovedOne = weekDays.filter(
+        (day) => day !== weekDaySelect
+      );
 
       handleStateForm("daysOfWeek", weekDaysWithRemovedOne);
     } else {
-      const weekDaysWithAddedOne = [...weekDays, weekDay].join(",");
+      const weekDaysWithAddedOne = [...weekDays, weekDaySelect];
 
       handleStateForm("daysOfWeek", weekDaysWithAddedOne);
     }
-
-    console.log(registerForm?.daysOfWeek);
   }
 
   return (
@@ -77,10 +70,7 @@ export const StepFour = () => {
             key={index}
             className='flex items-center gap-3 focus:outline-none'
             onCheckedChange={() => handleToggleWeekDay(day)}
-            checked={registerForm?.daysOfWeek
-              ?.split(",")
-              ?.map((day) => day.trim())
-              ?.includes(day.charAt(0))}
+            checked={registerForm?.daysOfWeek?.includes(day)}
           >
             <div className='h-7 w-7 rounded-lg flex items-center justify-center bg-zinc-900 border-2 border-zinc-800'>
               <Checkbox.Indicator>

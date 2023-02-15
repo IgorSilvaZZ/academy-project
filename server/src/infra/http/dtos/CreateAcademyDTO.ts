@@ -33,6 +33,9 @@ export class CreateAcademyDTO {
   city: string;
 
   @IsNotEmpty()
+  state: string;
+
+  @IsNotEmpty()
   number: string;
 
   @IsNotEmpty()
@@ -48,7 +51,6 @@ export class CreateAcademyDTO {
   longitude: number;
 
   @IsArray()
-  @ArrayMinSize(1)
   plans: [
     {
       planId: string;

@@ -13,6 +13,7 @@ export interface IAcademyProps {
   telephoneNumber: TelephoneNumber;
   address: string;
   city: string;
+  state: string;
   number: string;
   postalCode: string;
   neighborhood: string;

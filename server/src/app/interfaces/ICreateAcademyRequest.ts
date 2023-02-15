@@ -4,6 +4,7 @@ export interface IAcademy {
   name: string;
   address: string;
   city: string;
+  state: string;
   email: string;
   daysOfWeek: string;
   description: string;

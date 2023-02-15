@@ -20,6 +20,7 @@ export class AcademyViewModel {
       telephoneNumber: academy.telephoneNumber.value,
       address: academy.address,
       city: academy.city,
+      state: academy.state,
       number: academy.number,
       postalCode: academy.postalCode,
       neighborhood: academy.neighborhood,

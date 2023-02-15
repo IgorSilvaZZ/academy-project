@@ -14,14 +14,6 @@ export class Academy {
   private props: IAcademyProps;
 
   constructor(props: ReplaceAcademyProps) {
-    const plansIsEmpty = this.validatePlansEmpty(props.plans);
-
-    if (plansIsEmpty) {
-      throw new Error(
-        'Academia precisa de pelo menos um plano para ser criada!',
-      );
-    }
-
     this.props = {
       ...props,
       createdAt: new Date(),
@@ -91,6 +83,14 @@ export class Academy {
 
   public set city(city: string) {
     this.props.city = city;
+  }
+
+  public get state() {
+    return this.props.state;
+  }
+
+  public set state(state: string) {
+    this.props.state = state;
   }
 
   public get number() {
@@ -175,9 +175,5 @@ export class Academy {
 
   public set updatedAt(updatedAt: Date | undefined) {
     this.props.updatedAt = updatedAt;
-  }
-
-  private validatePlansEmpty(plans: Plan[]): boolean {
-    return plans?.length === 0;
   }
 }

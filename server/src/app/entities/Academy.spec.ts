@@ -8,12 +8,4 @@ describe('Create Academy', () => {
 
     expect(academy).toBeTruthy();
   });
-
-  it('Should not be able with plans empty', () => {
-    expect(() => {
-      makeAcademy({
-        plans: [],
-      });
-    }).toThrow();
-  });
 });

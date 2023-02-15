@@ -26,6 +26,9 @@ export class AcademyCollection {
   city: string;
 
   @Prop()
+  state: string;
+
+  @Prop()
   number: string;
 
   @Prop()

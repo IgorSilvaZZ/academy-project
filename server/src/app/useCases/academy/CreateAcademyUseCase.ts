@@ -46,6 +46,7 @@ export class CreateAcademyUseCase {
       telephoneNumber: new TelephoneNumber(request.telephoneNumber),
       address: request.address,
       city: request.city,
+      state: request.state,
       number: request.number,
       postalCode: request.postalCode,
       neighborhood: request.neighborhood,

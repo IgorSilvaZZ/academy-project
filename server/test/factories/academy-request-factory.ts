@@ -18,6 +18,7 @@ export const makeAcademyRequest = (
     telephoneNumber: '(11)9889-90909',
     address: 'Rua Teste da Silva',
     city: 'São Paulo',
+    state: 'SP',
     number: '123',
     postalCode: '08043120',
     neighborhood: 'Bairro Teste',

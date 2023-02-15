@@ -47,7 +47,7 @@ export const Home = () => {
 
           <div className='flex flex-col gap-3 items-center justify-center w-80'>
             <Link
-              to='registerAcademy'
+              to='/registerAcademy'
               className='py-2 px-10 bg-violet-600 text-white font-semibold rounded-lg transition-colors hover:bg-violet-800'
             >
               Registrar-se

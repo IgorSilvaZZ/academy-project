@@ -1,11 +1,19 @@
 import { useState, ReactNode, createContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import { toast } from "react-toastify";
 import * as Yup from "yup";
+import { api, geocodingApi } from "../lib/axios";
+import {
+  getForwardGeocoding,
+  IGeocodingApi,
+} from "../services/geoCodingService";
 
 interface IAcademy {
   name: string;
   address: string;
   city: string;
+  state: string;
   email: string;
   daysOfWeek: string[];
   description: string;
@@ -38,6 +46,8 @@ export interface IRegisterContext {
 export const RegisterContext = createContext({} as IRegisterContext);
 
 export const RegisterContextProvider = ({ children }: RegisterContextProps) => {
+  const navigateRegisterContext = useNavigate();
+
   const [registerForm, setRegisterForm] = useState<IAcademy>({} as IAcademy);
   const [step, setStep] = useState(1);
 
@@ -57,6 +67,7 @@ export const RegisterContextProvider = ({ children }: RegisterContextProps) => {
       stepTwo: {
         address: registerData.address,
         city: registerData.city,
+        state: registerData.state,
         neighborhood: registerData.neighborhood,
         number: registerData.number,
         postalCode: registerData.postalCode,
@@ -74,15 +85,49 @@ export const RegisterContextProvider = ({ children }: RegisterContextProps) => {
     return stepsData[stepName];
   };
 
+  async function getLatitudeAndLatitude({
+    street,
+    city,
+    state,
+    country,
+    postalCode,
+  }: IGeocodingApi) {
+    try {
+      const data = await getForwardGeocoding({
+        street,
+        city,
+        state,
+        country,
+        postalCode,
+      });
+
+      setRegisterForm({
+        ...registerForm,
+        latitude: data.lat,
+        longitude: data.lon,
+      });
+
+      setStep((prevState) => prevState + 1);
+    } catch (error) {
+      console.log(error);
+
+      toast.error("Houve algum erro ao coletar informações do endereço!!");
+    }
+  }
+
   function validateSchema(
     stepSchema: Yup.Schema,
     stepData: PartialAcademyProps
   ) {
     stepSchema
       .validate(stepData, { abortEarly: false })
-      .then(() => {
+      .then(async () => {
         if (step >= 1 && step <= 3) {
-          setStep((prevState) => prevState + 1);
+          if (step === 2) {
+            await getLatitudeAndLatitude(stepData);
+          } else {
+            setStep((prevState) => prevState + 1);
+          }
         } else {
           submitForm();
         }
@@ -118,6 +163,7 @@ export const RegisterContextProvider = ({ children }: RegisterContextProps) => {
     const stepTwoSchema = Yup.object({
       address: Yup.string().required("Preecha o endereço!!"),
       city: Yup.string().required("Preencha a cidade!!"),
+      state: Yup.string().required("Preencha o estado!!"),
       neighborhood: Yup.string().required("Preencha o bairro!!"),
       number: Yup.string().required("Preencha o numero!!"),
       postalCode: Yup.string().required("Preencha o cep!!"),
@@ -171,19 +217,32 @@ export const RegisterContextProvider = ({ children }: RegisterContextProps) => {
     setStep((prevState) => prevState - 1);
   }
 
-  function submitForm() {
-    // daysOfWeek Transformar para string quando for mandar para API
-
+  async function submitForm() {
+    // daysOfWeek Transformado para string quando for mandar para API
     const formattedDaysOfWeek = registerForm.daysOfWeek
       .map((day) => day.trim())
       .join(",");
 
+    // Colocar a latitude e longitude ser pega a partir do endereço
     const newAcademyData = {
       ...registerForm,
       daysOfWeek: formattedDaysOfWeek,
+      plans: [],
     };
 
-    console.log(newAcademyData);
+    try {
+      await api.post("/gyms", newAcademyData);
+
+      toast.success("Academia cadastrada com sucesso!!");
+
+      setTimeout(() => {
+        navigateRegisterContext("/");
+      }, 1700);
+    } catch (error) {
+      console.log(error);
+
+      toast.error("Erro ao cadastrar a academia!!");
+    }
   }
 
   function handleStateForm(name: string, value: number | string | string[]) {

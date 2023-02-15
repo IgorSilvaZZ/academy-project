@@ -15,13 +15,23 @@ export const StepTwo = () => {
         onChange={(e) => handleStateForm("address", e.target.value)}
       />
 
-      <input
-        type='text'
-        className='h-14 w-full max-w-md text-gray-300 font-semibold border-b border-b-zinc-500 bg-transparent outline-none hover:border-zinc-700'
-        placeholder='Cidade'
-        value={registerForm?.city}
-        onChange={(e) => handleStateForm("city", e.target.value)}
-      />
+      <div className='flex gap-5 w-full max-w-md'>
+        <input
+          type='text'
+          className='h-14 w-[220px] max-w-md text-gray-300 font-semibold border-b border-b-zinc-500 bg-transparent outline-none hover:border-zinc-700'
+          placeholder='Cidade'
+          value={registerForm?.city}
+          onChange={(e) => handleStateForm("city", e.target.value)}
+        />
+
+        <input
+          type='text'
+          className='h-14 w-[220px] max-w-md text-gray-300 font-semibold border-b border-b-zinc-500 bg-transparent outline-none hover:border-zinc-700'
+          placeholder='Estado'
+          value={registerForm?.state}
+          onChange={(e) => handleStateForm("state", e.target.value)}
+        />
+      </div>
 
       <input
         type='text'
